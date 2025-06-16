@@ -11,7 +11,7 @@ import {
   FiClock,
 } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchPostById } from "@/store/postsSlice";
+import { fetchPostByIdRequest } from "@/store/postsSlice";
 import { CommentForm } from "@/app/components/CommentForm";
 import { CommentList } from "@/app/components/CommentList";
 import { PostDetailSkeleton } from "@/app/components/LoadingSkeletons";
@@ -28,7 +28,7 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     if (postId) {
-      dispatch(fetchPostById(postId));
+      dispatch(fetchPostByIdRequest(postId));
     }
   }, [dispatch, postId]);
 

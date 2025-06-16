@@ -10,7 +10,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchPosts } from "@/store/postsSlice";
+import { fetchPostsRequest } from "@/store/postsSlice";
 import { PostListSkeleton } from "./LoadingSkeletons";
 import FeaturedCard from "./FeaturedCard";
 import styles from "./PostList.module.css";
@@ -20,7 +20,7 @@ export default function PostList() {
   const { posts, loading, error } = useAppSelector((state) => state.posts);
 
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(fetchPostsRequest());
   }, [dispatch]);
 
   if (loading) return <PostListSkeleton />;

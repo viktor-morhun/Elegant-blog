@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { FiArrowLeft, FiEdit } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchPostById } from "@/store/postsSlice";
+import { fetchPostByIdRequest } from "@/store/postsSlice";
 import PostForm from "@/app/components/PostForm";
 import { PostDetailSkeleton } from "@/app/components/LoadingSkeletons";
 import styles from "./EditPost.module.css";
@@ -18,7 +18,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     if (postId) {
-      dispatch(fetchPostById(postId));
+      dispatch(fetchPostByIdRequest(postId));
     }
   }, [dispatch, postId]);
 

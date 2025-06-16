@@ -113,10 +113,12 @@
 }
 
 .commentSkeleton {
-  background-color: #f9f9f9;
+  background-color: var(--background-color);
   border-radius: var(--radius-lg);
   padding: 1rem;
   margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease;
 }
 
 .commentHeaderSkeleton {
@@ -139,6 +141,17 @@
   height: 1rem;
   width: 100%;
   margin-bottom: 0.5rem;
+}
+
+:global(.dark-mode) .commentSkeleton {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+:global(.dark-mode) .postContentSkeleton,
+:global(.dark-mode) .postCardSkeleton {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
 }
 
 @media (max-width: 768px) {

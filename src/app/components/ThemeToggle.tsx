@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { FiSun, FiMoon } from "react-icons/fi";
 import styles from "./ThemeToggle.module.css";
@@ -22,22 +22,26 @@ export default function ThemeToggle() {
     }
   }, []);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+  const toggleTheme = useCallback(() => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
 
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark-mode");
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.add("dark-mode");
-      localStorage.setItem("theme", "dark");
-    }
+      if (newMode) {
+        document.documentElement.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+      }
 
-    document.body.style.transition = "none";
-    setTimeout(() => {
-      document.body.style.transition = "";
-    }, 50);
-  };
+      document.body.style.transition = "none";
+      setTimeout(() => {
+        document.body.style.transition = "";
+      }, 50);
+
+      return newMode;
+    });
+  }, []);
 
   return (
     <motion.button

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { FiSend, FiAlertCircle } from "react-icons/fi";
 import { useAppDispatch } from "@/store/hooks";
-import { addComment } from "@/store/postsSlice";
+import { addCommentRequest } from "@/store/postsSlice";
 import { CommentInput } from "@/models/post";
 import styles from "./CommentForm.module.css";
 
@@ -18,32 +18,49 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleAuthorChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAuthor(e.target.value);
+    },
+    []
+  );
 
-    if (!author.trim() || !text.trim()) {
-      setError("Please fill in all fields");
-      return;
-    }
+  const handleTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setText(e.target.value);
+    },
+    []
+  );
 
-    try {
-      setIsSubmitting(true);
-      setError(null);
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-      const commentData: CommentInput = {
-        author: author.trim(),
-        text: text.trim(),
-      };
+      if (!author.trim() || !text.trim()) {
+        setError("Please fill in all fields");
+        return;
+      }
 
-      await dispatch(addComment({ postId, comment: commentData })).unwrap();
-      setText("");
-    } catch (err) {
-      setError("Failed to add comment. Please try again.");
-      console.error("Error adding comment:", err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+      try {
+        setIsSubmitting(true);
+        setError(null);
+
+        const commentData: CommentInput = {
+          author: author.trim(),
+          text: text.trim(),
+        };
+
+        await dispatch(addCommentRequest({ postId, comment: commentData }));
+        setText("");
+      } catch (err) {
+        setError("Failed to add comment. Please try again.");
+        console.error("Error adding comment:", err);
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [author, text, dispatch, postId]
+  );
 
   return (
     <div className={styles.commentFormContainer}>
@@ -65,7 +82,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
             type="text"
             id="author"
             value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            onChange={handleAuthorChange}
             className={styles.input}
             placeholder="Enter your name"
             disabled={isSubmitting}
@@ -80,7 +97,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
           <textarea
             id="comment"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={handleTextChange}
             className={styles.textarea}
             placeholder="Write your thoughts here..."
             rows={4}

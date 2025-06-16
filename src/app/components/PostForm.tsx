@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiSave, FiX, FiAlertCircle } from "react-icons/fi";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { createPost, updatePost } from "@/store/postsSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { createPostRequest, updatePostRequest } from "@/store/postsSlice";
 import { PostSchema, PostInput, Post } from "@/models/post";
 import AnimatedButton from "./AnimatedButton";
 import styles from "./PostForm.module.css";
@@ -43,57 +43,66 @@ export default function PostForm({
     }
   }, [initialData]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
 
-    if (name === "content") {
-      setCharCount(value.length);
-    }
-
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      PostSchema.parse(formData);
-
-      setIsSubmitting(true);
-
-      if (isEdit && initialData?.id) {
-        const result = await dispatch(
-          updatePost({
-            id: initialData.id,
-            postData: formData,
-          })
-        ).unwrap();
-
-        router.push(`/posts/${result.id}`);
-      } else {
-        const result = await dispatch(createPost(formData)).unwrap();
-        router.push(`/posts/${result.id}`);
+      if (name === "content") {
+        setCharCount(value.length);
       }
-    } catch (error: any) {
-      if (error.errors) {
-        const newErrors: { [key: string]: string } = {};
-        error.errors.forEach((err: any) => {
-          const path = err.path[0];
-          newErrors[path] = err.message;
-        });
-        setErrors(newErrors);
-      } else {
-        console.error("Error submitting post:", error);
+
+      if (errors[name]) {
+        setErrors((prev) => ({ ...prev, [name]: "" }));
       }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    },
+    [errors]
+  );
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      try {
+        PostSchema.parse(formData);
+
+        setIsSubmitting(true);
+
+        if (isEdit && initialData?.id) {
+          await dispatch(
+            updatePostRequest({
+              id: initialData.id,
+              postData: formData,
+            })
+          );
+
+          router.push(`/posts/${initialData.id}`);
+        } else {
+          const result = await dispatch(createPostRequest(formData));
+          const postId = (result.payload as Post)?.id;
+          if (postId) {
+            router.push(`/posts/${postId}`);
+          } else {
+            router.push("/");
+          }
+        }
+      } catch (error: any) {
+        if (error.errors) {
+          const newErrors: { [key: string]: string } = {};
+          error.errors.forEach((err: any) => {
+            const path = err.path[0];
+            newErrors[path] = err.message;
+          });
+          setErrors(newErrors);
+        } else {
+          console.error("Error submitting post:", error);
+        }
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData, isEdit, initialData, dispatch, router]
+  );
 
   return (
     <motion.div

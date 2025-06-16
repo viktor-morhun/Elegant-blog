@@ -1,16 +1,17 @@
 # Elegant Blog
 
-A blog app built with Next.js, Redux Toolkit, and Firebase.
+A blog app built with Next.js, Redux Toolkit, Redux Saga, and Firebase.
 
 ## Features
 
 - Light/dark mode
 - Responsive design
 - Firebase integration
-- Redux state management
+- Redux with Redux Saga for API requests
 - Form validation with Zod
 - Animations with Framer Motion
 - Comment system
+- React Hooks for state management
 
 ## Setup
 
