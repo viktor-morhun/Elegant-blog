@@ -1,0 +1,143 @@
+.postDetail {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.backLink {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  transition: var(--transition-all);
+}
+
+.backLink:hover {
+  color: var(--primary-color);
+  transform: translateX(-3px);
+}
+
+.postContent {
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--box-shadow);
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.postContent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+}
+
+.postTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.postMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.metaIcon {
+  font-size: 1rem;
+}
+
+.postBody {
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: var(--text-color);
+}
+
+.postBody p {
+  margin-bottom: 1.5rem;
+}
+
+.postBody p:last-child {
+  margin-bottom: 0;
+}
+
+.commentsSection {
+  margin-top: 3rem;
+  transition: color 0.3s ease;
+}
+
+.commentsSection h2 {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 700;
+  color: var(--text-color);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.errorMessage {
+  padding: 1rem 2rem;
+  background-color: #fef2f2;
+  border-radius: var(--radius-lg);
+  color: var(--error-color);
+  font-weight: 500;
+  border: 1px solid #fee2e2;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .postContent {
+    padding: 1.5rem;
+  }
+
+  .postTitle {
+    font-size: 2rem;
+  }
+
+  .postMeta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

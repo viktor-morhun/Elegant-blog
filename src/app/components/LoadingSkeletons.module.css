@@ -1,0 +1,148 @@
+.postGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.postCardSkeleton {
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.titleSkeleton {
+  height: 1.5rem;
+  width: 80%;
+  margin-bottom: 1rem;
+}
+
+.metaSkeleton {
+  height: 0.875rem;
+  width: 60%;
+  margin-bottom: 1.5rem;
+}
+
+.contentSkeleton {
+  height: 1rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.footerSkeleton {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.linkSkeleton {
+  height: 1rem;
+  width: 30%;
+}
+
+.commentsSkeleton {
+  height: 1rem;
+  width: 20%;
+}
+
+.postDetailSkeleton {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.postHeaderSkeleton {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.backLinkSkeleton {
+  height: 1rem;
+  width: 100px;
+}
+
+.editLinkSkeleton {
+  height: 2rem;
+  width: 100px;
+  border-radius: var(--radius-md);
+}
+
+.postContentSkeleton {
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--box-shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.titleLargeSkeleton {
+  height: 2.5rem;
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+.bodySkeleton {
+  margin-top: 2rem;
+}
+
+.paragraphSkeleton {
+  height: 1rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.paragraphSkeleton:nth-child(even) {
+  width: 92%;
+}
+
+.paragraphSkeleton:nth-child(3n) {
+  width: 96%;
+}
+
+.commentsSectionSkeleton {
+  margin-top: 3rem;
+}
+
+.commentsHeaderSkeleton {
+  height: 1.5rem;
+  width: 30%;
+  margin-bottom: 1.5rem;
+}
+
+.commentSkeleton {
+  background-color: #f9f9f9;
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.commentHeaderSkeleton {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.authorSkeleton {
+  height: 1rem;
+  width: 30%;
+}
+
+.dateSkeleton {
+  height: 0.85rem;
+  width: 20%;
+}
+
+.commentTextSkeleton {
+  height: 1rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .postGrid {
+    grid-template-columns: 1fr;
+  }
+}

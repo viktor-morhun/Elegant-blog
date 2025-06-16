@@ -1,0 +1,146 @@
+.postGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.postCard {
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.postCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: transform 0.3s ease;
+}
+
+.postCard:hover::before {
+  transform: scaleX(1);
+}
+
+.postTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.postMeta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.metaIcon {
+  font-size: 0.875rem;
+}
+
+.postExcerpt {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+.postFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.readMoreLink {
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: gap 0.3s ease;
+}
+
+.readMoreLink:hover {
+  gap: 0.5rem;
+}
+
+.readMoreIcon {
+  transition: transform 0.3s ease;
+}
+
+.readMoreLink:hover .readMoreIcon {
+  transform: translateX(3px);
+}
+
+.commentsCount {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.commentIcon {
+  font-size: 1rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.emptyStateIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.errorState {
+  padding: 2rem;
+  background-color: #fef2f2;
+  border-radius: var(--radius-lg);
+  color: var(--error-color);
+  text-align: center;
+  border: 1px solid #fee2e2;
+}
+
+@media (max-width: 768px) {
+  .postGrid {
+    grid-template-columns: 1fr;
+  }
+}
