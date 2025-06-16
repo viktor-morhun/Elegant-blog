@@ -1,13 +1,21 @@
 import { Providers } from "./providers";
 import ThemeToggle from "./components/ThemeToggle";
+import Logo from "./components/Logo";
 import "./globals.css";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Elegant Blog | Modern SSR Blog with Redux Toolkit",
   description:
     "A beautiful and responsive blog built with Next.js, Redux Toolkit, and Firestore",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -29,9 +37,7 @@ export default function RootLayout({
                   alignItems: "center",
                 }}
               >
-                <Link href="/">
-                  <h1>Elegant Blog</h1>
-                </Link>
+                <Logo />
                 <ThemeToggle />
               </div>
             </div>

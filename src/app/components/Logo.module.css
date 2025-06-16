@@ -1,0 +1,33 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition-all);
+}
+
+.logo:hover {
+  color: var(--primary-hover);
+}
+
+.logo h1 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  font-size: 1.5rem;
+}
+
+.logoIcon {
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logoIcon {
+  transform: rotate(-5deg);
+}
+
+@media (max-width: 640px) {
+  .logo h1 {
+    font-size: 1.25rem;
+  }
+}
